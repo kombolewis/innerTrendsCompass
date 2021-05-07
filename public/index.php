@@ -17,7 +17,7 @@ use App\Controllers\IndexController;
 
 $app = new Core\Application();
 
-// $app->router->get('/', fn() => 'hello world');
+$app->router->get('/test', fn() => 'Testing routing with closure function. Hello World');
 $app->router->get('/', [IndexController::class, 'index']);
 
 

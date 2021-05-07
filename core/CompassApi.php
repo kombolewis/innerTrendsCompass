@@ -29,6 +29,8 @@ class CompassApi {
      * @var string
      */
     private $collect_endpoint = "babel.innertrends.com/store";
+    // private $collect_endpoint = "https://webhook.site/270304f1-d5d2-4ee7-a433-55c8ceb3b8cf";
+
   
     /**
      * Stores erros at wrapper level
@@ -119,7 +121,7 @@ class CompassApi {
             $this->version = $version;
     }
 
-  /**
+    /**
      * Activate debug mode;
      * @param boolean $d
      * @return $this
@@ -203,7 +205,7 @@ class CompassApi {
      * @param array $builder
      * @return array
      */
-      private function buildRequest($builder = array()) {
+    private function buildRequest($builder = array()) {
 
         if ($builder['__api_op'] == "log") {
            
@@ -212,7 +214,7 @@ class CompassApi {
                  
       
             $terminal = (($this->secure) ? 'https' : 'http') . '://' . $this->collect_endpoint;
-            $payload=array("event"=>"","labels"=>[],"version"=>$this->version,"type"=>"action","identity"=>"","context"=>new stdClass());
+            $payload=array("event"=>"","labels"=>[],"version"=>$this->version,"type"=>"action","identity"=>"","context"=>new \stdClass());
             unset($builder['__api_op']);
          
             if (!empty($builder)) {
@@ -313,7 +315,6 @@ class CompassApi {
      * @param array $request
      */
     public function send($request = array()) {
- 
         // print request configuration, before send
         if ($this->debug) {
             echo "<br>The request: ".print_r($request,true);
@@ -392,8 +393,8 @@ class CompassApi {
         // fix forwaded format
         if (!empty($args))
             $args['fix'] =1;
-
         // Forward action to the instance
+
         return self::$instance->{$method}($args);
     }
    
@@ -481,7 +482,6 @@ class CompassApi {
             }
             else $this->registerError("invalid method call: $method"); 
         } 
-
       
         //Send final composed request -> if no error occured on composition
         if($this->noError()) 
